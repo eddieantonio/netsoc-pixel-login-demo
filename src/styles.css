@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import url("pixeloid.css");
 
 *,
 *::before,
@@ -8,10 +9,30 @@
     padding: 0;
 }
 
+:root {
+    --black: #191919;
+    --white: #fff;
+    --accent: #5AC75C;
+    --dim-accent: #245825;
+    --bright-accent: #72d774;
+
+    --body-font: "Pixeloid Sans", sans-serif;
+    --mono-font: "Pixeloid Mono", monospace;
+
+    font-family: var(--body-font);
+    color: var(--white);
+    background-color: var(--black);
+}
+
 body {
     display: grid;
     place-items: center;
     min-height: 100vh;
+}
+
+input,
+button {
+    font-family: var(--body-font);
 }
 
 .logo {
@@ -23,10 +44,10 @@ body {
 .main {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 2rem;
 
     /* Stolen from: https://moderncss.dev/practical-uses-of-css-math-functions-calc-clamp-min-max/#the-modern-css-container-class */
-    width: min(60ch, 100vw - 2rem);
+    width: min(50ch, 100vw - 2rem);
     aspect-ratio: 1.618;
 }
 
@@ -52,7 +73,7 @@ body {
 .label {
     font-size: 1.2rem;
     font-weight: bold;
-    margin-bottom: .4rem;
+    margin-bottom: .5rem;
 }
 
 .text-input {
@@ -60,10 +81,33 @@ body {
     font-size: 1.2rem;
 
     border: none;
-    border-bottom: 1px solid #000;
-    border-radius: 4px;
+    border-bottom: 4px solid var(--dim-accent);
+    color: var(--white);
+    background-color: #191919;
 
-    margin-block-end: 0.4rem;
+    padding: 0.5rem;
+
+    margin-block-end: 1rem;
+    transition: border-color 0.2s ease-in-out;
+}
+
+.text-input:not(:focus) {
+    cursor: pointer;
+}
+
+.text-input:focus,
+.text-input:hover {
+    outline: none;
+    border-bottom: 4px solid var(--accent);
+}
+
+.text-input::placeholder {
+    color: var(--accent);
+    transition: opacity 0.2s ease-in-out;
+}
+
+.text-input:focus::placeholder {
+    opacity: 0.75;
 }
 
 .button-group {
@@ -72,8 +116,27 @@ body {
     justify-content: space-between;
 }
 
-.button-group__main {
+.button-group__primary {
+    margin-inline-start: auto;
+}
+
+.btn {
     font-size: 1.4rem;
     padding: .25rem 1rem;
-    margin-inline-start: auto;
+
+    color: var(--white);
+    background-color: var(--accent);
+
+    border-radius: 0;
+    border: 4px outset var(--accent);
+
+    cursor: pointer;
+
+    transition: background-color 0.2s ease-in-out;
+}
+
+.btn:hover,
+.btn:focus-within {
+    background-color: var(--bright-accent);
+    border-style: solid;
 }
