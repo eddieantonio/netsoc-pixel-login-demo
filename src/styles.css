@@ -1,0 +1,5 @@
+.logo {
+    image-rendering: pixelated;
+    transform: scale(6);
+    transform-origin: top left;
+}
