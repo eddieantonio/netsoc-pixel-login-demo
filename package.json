@@ -1,7 +1,8 @@
 {
-  "name": "splash-animation",
+  "name": "netsoc-pixel-login-demo",
   "version": "1.0.0",
-  "description": "",
+  "description": "Demo an an animation",
+  "private": true,
   "source": "src/index.html",
   "scripts": {
     "start": "parcel",
