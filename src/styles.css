@@ -27,7 +27,10 @@
 body {
     display: grid;
     place-items: center;
+    /* Fallback for browsers that don't support dvh units: */
     min-height: 100vh;
+    /* 100dvh as opposed to vh accounts for the address bar on mobile. */
+    min-height: 100dvh;
 }
 
 input,

@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Splash demo</title>
-    <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🗿</text></svg>">
     <link rel="stylesheet" href="styles.css">
     <script src="app.js" type="module"></script>
+    <meta name="theme-color" content="#5AC75C">
+    <link rel="icon" href="favicon.png">
 </head>
 
 <body>
@@ -20,7 +20,8 @@
         <form class="form">
             <div class="group input-group">
                 <label for="username" class="label">Enter your student number:</label>
-                <input type="text" id="username" name="username" placeholder="Student number" class="text-input">
+                <input id="username" class="text-input" type="text" name="username" inputmode="numeric"
+                    placeholder="Student number">
             </div>
 
             <div class="group button-group">

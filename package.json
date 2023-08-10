@@ -4,6 +4,7 @@
   "description": "Demo an an animation",
   "private": true,
   "source": "src/index.html",
+  "browserslist": "> 5%, Firefox ESR, not dead",
   "scripts": {
     "start": "parcel",
     "build": "parcel build"

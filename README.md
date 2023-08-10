@@ -23,4 +23,4 @@ Build a version in `dist/`:
 
 Code: Copyright © 2023 Eddie Antonio Santos. See `LICENSE` for details.
 
-Netsoc logo: Copyright [netsoc](https://netsoc.com/).
+Netsoc logo: Copyright [UCD netsoc](https://netsoc.com/).

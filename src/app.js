@@ -14,7 +14,7 @@ async function init() {
     const imgElement = document.getElementById("logo");
     const header = imgElement.parentElement;
 
-    let bitmap = await createImageBitmap(imgElement);
+    const bitmap = await createImageBitmap(imgElement);
     const width = bitmap.width;
     const height = bitmap.height;
     const pixelCount = width * height;
