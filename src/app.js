@@ -23,12 +23,15 @@ async function init() {
     const maximumMessedUpPixels = pixelCount * 0.0075;
     const probabilityOfModifyingAPixel = 0.2; // per frame
 
-    // Create a canvas and blit the image to it.
+    // Create a canvas, copying the image's attributes...
     const canvas = document.createElement("canvas");
     canvas.width = width
     canvas.height = height;
     canvas.classList.add("logo");
+    canvas.setAttribute("aria-label", imgElement.getAttribute("alt"));
     header.appendChild(canvas);
+
+    /// ...and blit the image to it:
     const ctx = canvas.getContext("2d");
     ctx.drawImage(bitmap, 0, 0);
 
@@ -51,31 +54,22 @@ async function init() {
         requestAnimationFrame(loop);
     };
 
+    /* ===================================================================== */
+
     /**
      * Either mess up or restore a single pixel.
      */
     function modifyOnePixel() {
         if (shouldMessUpAPixel()) {
             // Mess up a random pixel
-            let { x, y, color } = randomPixel();
+            const { x, y, color } = randomPixel();
             messedUpPixels.push({ x, y });
             drawPixel(x, y, color);
         } else {
             // Restore a pixel from the original image data.
-            let { x, y } = randomPop(messedUpPixels);
+            const { x, y } = randomPop(messedUpPixels);
             ctx.putImageData(originalImageData, 0, 0, x, y, 1, 1);
         }
-    }
-
-    /**
-     * Returns a random pixel x, y coordinate and color.
-     */
-    function randomPixel() {
-        return {
-            x: randomZeroTo(width),
-            y: randomZeroTo(height),
-            color: randomChoice(palette),
-        };
     }
 
     /**
@@ -86,20 +80,31 @@ async function init() {
         // Always mess up a pixel if the canvas is clean.
         if (messedUpPixels.length === 0) return true;
         // Never mess up a pixel if the canvas is too messed up.
-        if (messedUpPixels.length > maximumMessedUpPixels) return false;
+        if (messedUpPixels.length >= maximumMessedUpPixels) return false;
 
         // Smoothly increase the probability of cleaning up a pixel.
-        let ratio = messedUpPixels.length / maximumMessedUpPixels;
-        let random = Math.random();
+        const ratio = messedUpPixels.length / maximumMessedUpPixels;
+        const random = Math.random();
         return random > ease(ratio);
+    }
+
+    /**
+     * Returns a random pixel's x & y coordinate and a random color.
+     */
+    function randomPixel() {
+        return {
+            x: randomZeroTo(width),
+            y: randomZeroTo(height),
+            color: randomChoice(palette),
+        };
     }
 
     /**
      * Draw a single pixel on the canvas.
      *
      * @param {number} x x-coordinate of the pixel
-     * @param {*} y y-coordinate of the pixel
-     * @param {*} color color of the pixel
+     * @param {number} y y-coordinate of the pixel
+     * @param {string} color color of the pixel as a CSS color string
      */
     function drawPixel(x, y, color) {
         ctx.fillStyle = color;
@@ -131,7 +136,7 @@ function ease(x) {
 /**
  * Returns a random element from the array.
  *
- * @param {Array[T]} arr 
+ * @param {Array<T>} arr
  * @returns {T} a random element from the array
  */
 function randomChoice(arr) {
@@ -151,18 +156,18 @@ function randomZeroTo(max) {
 /**
  * Pops a random element from the array. Will rearrange the array.
  * 
- * @param {Array[T]} arr 
+ * @param {Array<T>} arr
  * @returns {T} a random element from the array
  */
 function randomPop(arr) {
     // Get a random position in the array.
-    let index = randomZeroTo(arr.length);
+    const index = randomZeroTo(arr.length);
     // This is what we're ultimately going to return.
-    let element = arr[index];
+    const choice = arr[index];
     // However... we need to swap it with the last element in the array.
-    let temporary = arr.pop();
-    arr[index] = temporary;
+    const replacement = arr.pop();
+    arr[index] = replacement;
 
     // There we go! O(1) pop from a random position in the array.
-    return element;
+    return choice;
 }

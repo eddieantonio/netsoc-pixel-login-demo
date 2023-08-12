@@ -139,7 +139,7 @@ button {
 }
 
 .btn:hover,
-.btn:focus-within {
+.btn:focus {
     background-color: var(--bright-accent);
     border-style: solid;
 }
